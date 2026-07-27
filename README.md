@@ -76,7 +76,7 @@ DataPilotAI/
 
 ---
 
-# 🛠️ Tech Stack
+#  Tech Stack
 
 ### Backend
 - Python
