@@ -3,11 +3,11 @@
 
 <head>
 
-    <!-- Meta Tags -->
+    <!-- Meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Fonts -->
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,11 +15,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
 
-    <!-- Page Title -->
+    <!-- Title -->
     <title>
 
         {% block title %}
-            DataPilot AI
+            Dashboard | DataPilot AI
         {% endblock %}
 
     </title>
@@ -27,6 +27,10 @@
     <!-- Global CSS -->
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
 
     <!-- Page Specific CSS -->
     {% block styles %}
@@ -36,24 +40,25 @@
 
 <body>
 
-    <!-- Navbar -->
-    {% include "components/navbar.html" %}
+    <div class="dashboard-layout">
 
-    <!-- Main Content -->
-    <main>
+        <!-- Sidebar -->
+        {% include "components/sidebar.html" %}
 
-        {% block content %}
-        {% endblock %}
+        <!-- Main Content -->
+        <main class="dashboard-content">
 
-    </main>
+            {% block content %}
+            {% endblock %}
 
-    <!-- Footer -->
-    {% include "components/footer.html" %}
+        </main>
 
-    <!-- Global JavaScript -->
+    </div>
+
+    
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
-    <!-- Page Specific JavaScript -->
+   
     {% block scripts %}
     {% endblock %}
 
