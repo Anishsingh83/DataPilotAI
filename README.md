@@ -1,54 +1,65 @@
-#  DataPilot AI
+# DataPilot AI
 
-> **An AI-Powered Data Science Assistant that automates data analysis, visualization, preprocessing, and machine learning.**
-
-DataPilot AI is a modern Flask-based web application designed to simplify the complete data science workflow. Users can upload datasets, explore insights, clean data, visualize trends, train machine learning models, and generate reports—all from a single platform.
+An AI-powered data science assistant that automates data analysis, preprocessing, visualization, machine learning, and report generation through a modern web application.
 
 ---
 
-#  Features
+## Overview
 
-## Current
-- Professional Flask project architecture
-- Modular folder structure
-- Git-based development workflow
-- Environment configuration
-- Logging support
-- Ready for scalable development
+DataPilot AI is a Flask-based platform designed to simplify the complete data science workflow. It enables users to upload datasets, analyze them, clean data, visualize insights, build machine learning models, and generate reports from a single interface.
 
-## Upcoming
--  CSV / Excel Upload
--  Automated Exploratory Data Analysis (EDA)
--  Data Cleaning & Preprocessing
--  Interactive Visualizations
--  Machine Learning Model Recommendation
--  AutoML Pipeline
--  AI-powered Report Generation
--  Chat with Your Dataset
--  Export Reports (PDF / Excel)
+The project is being developed with a modular architecture and follows software engineering best practices including version control, configuration management, logging, and scalable project organization.
 
 ---
 
-#  Project Architecture
+## Planned Features
 
-```
-User
-   │
-   ▼
-Flask Web App
-   │
-   ├── Data Upload
-   ├── Data Cleaning
-   ├── EDA Engine
-   ├── Visualization
-   ├── Machine Learning
-   ├── AI Assistant
-   └── Report Generator
-```
+- CSV and Excel dataset upload
+- Automated data profiling
+- Data cleaning and preprocessing
+- Exploratory Data Analysis (EDA)
+- Interactive visualizations
+- Machine learning model recommendation
+- AutoML pipeline
+- AI-generated business insights
+- Report generation (PDF / Excel)
+- Dataset chat assistant
+- User authentication
 
 ---
 
-# Project Structure
+## Technology Stack
+
+### Backend
+
+- Python
+- Flask
+
+### Data Science
+
+- Pandas
+- NumPy
+- Scikit-learn
+
+### Visualization
+
+- Matplotlib
+- Seaborn
+- Plotly
+
+### Database
+
+- SQLite
+- SQLAlchemy
+
+### Utilities
+
+- python-dotenv
+- Loguru
+
+---
+
+## Project Structure
 
 ```text
 DataPilotAI/
@@ -68,41 +79,15 @@ DataPilotAI/
 │   ├── utils/
 │   └── visualization/
 │
-├── static/
 ├── templates/
+├── static/
 ├── instance/
 └── logs/
 ```
 
 ---
 
-#  Tech Stack
-
-### Backend
-- Python
-- Flask
-
-### Data Science
-- Pandas
-- NumPy
-- Scikit-learn
-
-### Visualization
-- Matplotlib
-- Seaborn
-- Plotly
-
-### Database
-- SQLite
-- SQLAlchemy
-
-### Utilities
-- Loguru
-- Python-dotenv
-
----
-
-#  Installation
+## Installation
 
 Clone the repository
 
@@ -110,7 +95,7 @@ Clone the repository
 git clone https://github.com/Anishsingh83/DataPilotAI.git
 ```
 
-Move into the project
+Move into the project directory
 
 ```bash
 cd DataPilotAI
@@ -122,7 +107,7 @@ Create a virtual environment
 python -m venv venv
 ```
 
-Activate it
+Activate the environment
 
 Windows
 
@@ -144,57 +129,37 @@ python app.py
 
 ---
 
-#  Development Roadmap
+## Development Roadmap
 
-- [x] Project Initialization
-- [x] GitHub Setup
-- [x] Professional Folder Structure
-- [x] Package Initialization
-- [x] Naming Standardization
+### Completed
+
+- Project initialization
+- Professional folder structure
+- Git repository setup
+- GitHub integration
+- Package initialization
+- Naming standardization
 
 ### In Progress
 
-- [ ] Professional Configuration System
-- [ ] Flask Application Factory
-- [ ] Logging System
-- [ ] File Upload Engine
+- Project documentation
+- Configuration management
+- Logging system
+- Flask application factory
 
 ### Upcoming
 
-- [ ] Data Cleaning Module
-- [ ] EDA Dashboard
-- [ ] Machine Learning Engine
-- [ ] AI Recommendation Engine
-- [ ] AutoML
-- [ ] AI Chat Assistant
-- [ ] Report Generator
-- [ ] User Authentication
-- [ ] Deployment
+- File upload module
+- Data preprocessing engine
+- EDA dashboard
+- Machine learning engine
+- AI recommendation engine
+- Report generation
+- User authentication
+- Production deployment
 
 ---
 
-#  Screenshots
-
-Project screenshots will be added as development progresses.
-
----
-
-# Contributing
-
-Contributions, ideas, and feedback are welcome.
-
----
-
-#  License
+## License
 
 This project is licensed under the MIT License.
-
----
-
-##  Support
-
-If you like this project, consider giving it a on GitHub.
-
----
-
-Made with using Python, Flask, and AI.
