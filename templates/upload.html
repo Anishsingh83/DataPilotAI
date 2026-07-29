@@ -1,0 +1,99 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}
+Upload Dataset | DataPilot AI
+{% endblock %}
+
+{% block content %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+
+{% endblock %}
+
+<!-- Upload Header -->
+
+<header class="page-header">
+
+    <h1>Upload Dataset</h1>
+
+    <p>
+
+        Upload your CSV, Excel or JSON dataset for AI-powered analysis.
+
+    </p>
+
+</header>
+
+{% if success %}
+
+<div class="success-message">
+
+    {{ success }}
+
+</div>
+
+{% endif %}
+
+<!-- Upload Card -->
+
+<section class="upload-section">
+
+    <div class="upload-card">
+
+        <div class="upload-card">
+
+            <form action="{{ url_for('home.upload') }}" method="POST" enctype="multipart/form-data">
+
+                <div class="upload-icon">
+                    📁
+                </div>
+
+                <h2>Drag & Drop Dataset</h2>
+
+                <p>or</p>
+
+                <!-- Hidden File Input -->
+
+                <input type="file" id="dataset" name="dataset" accept=".csv,.xlsx,.json" hidden>
+
+                <!-- Browse Button -->
+
+                <button type="button" class="browse-btn" onclick="document.getElementById('dataset').click()">
+                    Browse File
+                </button>
+
+                <br><br>
+
+                <span id="file-name">
+                    No file selected
+                </span>
+
+                <br><br>
+
+                <button type="submit" class="browse-btn">
+                    Upload Dataset
+                </button>
+
+                <br><br>
+
+                <small>
+
+                    Supported formats:
+                    CSV • XLSX • JSON
+
+                </small>
+
+            </form>
+
+        </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+
+{% endblock %}

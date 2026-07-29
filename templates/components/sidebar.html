@@ -3,7 +3,9 @@
     <!-- Logo -->
     <div class="sidebar-logo">
 
-        <a href="{{ url_for('home.home') }}">
+       <a href="{{ url_for('home.upload') }}">
+               Upload Dataset
+          </a>
 
             <span></span>
 
@@ -16,13 +18,13 @@
     <!-- Navigation -->
     <nav class="sidebar-menu">
 
-        <a href="#" class="active">
-             Dashboard
-        </a>
+        <a href="{{ url_for('home.dashboard') }}" class="active">
+          Dashboard
+          </a>
 
-        <a href="#">
-             Upload Dataset
-        </a>
+        <a href="{{ url_for('home.upload') }}">
+          Upload Dataset
+          </a>
 
         <a href="#">
             Reports

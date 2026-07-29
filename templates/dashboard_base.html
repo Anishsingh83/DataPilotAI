@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Font -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
     <title>
 
         {% block title %}
-            Dashboard | DataPilot AI
+        Dashboard | DataPilot AI
         {% endblock %}
 
     </title>
@@ -32,7 +32,7 @@
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/dashboard.css') }}">
 
-    <!-- Page Specific CSS -->
+    <!-- Page CSS -->
     {% block styles %}
     {% endblock %}
 
@@ -55,10 +55,10 @@
 
     </div>
 
-    
+    <!-- Global JS -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
-   
+    <!-- Page JS -->
     {% block scripts %}
     {% endblock %}
 

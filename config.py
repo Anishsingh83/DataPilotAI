@@ -22,3 +22,11 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+    
+    # Upload Folder
+    UPLOAD_FOLDER = "uploads"
+
+    # Allowed File Extensions
+    ALLOWED_EXTENSIONS = {"csv", "xlsx", "json"}
+    
+    

@@ -23,9 +23,11 @@ reports/
 datasets/raw/
 datasets/cleaned/
 datasets/processed/
+uploads/
 
 # OS Files
 .DS_Store
 Thumbs.db
 
 instance/*.db
+

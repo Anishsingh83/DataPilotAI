@@ -1,0 +1,161 @@
+/* Page Header */
+
+.page-header{
+
+    margin-bottom:40px;
+
+}
+
+.page-header h1{
+
+    font-size:2.2rem;
+
+    margin-bottom:10px;
+
+    color:#1E293B;
+
+}
+
+.page-header p{
+
+    color:#64748B;
+
+}
+
+
+/* Upload Section */
+
+.upload-section{
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+
+/* Upload Card */
+
+.upload-card{
+
+    width:100%;
+
+    max-width:850px;
+
+    background:#FFFFFF;
+
+    border:2px dashed #CBD5E1;
+
+    border-radius:16px;
+
+    padding:60px 40px;
+
+    text-align:center;
+
+    transition:.3s;
+
+}
+
+.upload-card:hover{
+
+    border-color:#2563EB;
+
+    background:#F8FAFC;
+
+}
+
+
+/* Upload Icon */
+
+.upload-icon{
+
+    font-size:4rem;
+
+    margin-bottom:20px;
+
+}
+
+
+/* Heading */
+
+.upload-card h2{
+
+    margin-bottom:10px;
+
+    color:#1E293B;
+
+}
+
+
+/* Paragraph */
+
+.upload-card p{
+
+    margin:20px 0;
+
+    color:#64748B;
+
+}
+
+
+/* Browse Button */
+
+.browse-btn{
+
+    background:#2563EB;
+
+    color:#FFFFFF;
+
+    border:none;
+
+    padding:14px 28px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:1rem;
+
+    transition:.3s;
+
+}
+
+.browse-btn:hover{
+
+    background:#1D4ED8;
+
+}
+
+
+/* Supported Files */
+
+.upload-card small{
+
+    display:block;
+
+    margin-top:25px;
+
+    color:#94A3B8;
+
+}
+
+.success-message{
+
+    width:100%;
+    max-width:850px;
+
+    background:#DCFCE7;
+
+    color:#166534;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+    text-align:center;
+
+    font-weight:600;
+
+}
