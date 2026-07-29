@@ -3,11 +3,9 @@
     <!-- Logo -->
     <div class="sidebar-logo">
 
-       <a href="{{ url_for('home.upload') }}">
-               Upload Dataset
-          </a>
+        <a href="{{ url_for('home.dashboard') }}">
 
-            <span></span>
+            <span>🚀</span>
 
             <h2>DataPilot AI</h2>
 
@@ -18,28 +16,44 @@
     <!-- Navigation -->
     <nav class="sidebar-menu">
 
-        <a href="{{ url_for('home.dashboard') }}" class="active">
-          Dashboard
-          </a>
+        <a href="{{ url_for('home.dashboard') }}">
+            📊 Dashboard
+        </a>
 
         <a href="{{ url_for('home.upload') }}">
-          Upload Dataset
-          </a>
+            📤 Upload Dataset
+        </a>
 
-        <a href="#">
-            Reports
+        <a href="{{ url_for('explorer.explorer') }}">
+            📋 Dataset Explorer
         </a>
 
         <a href="#">
-             Analytics
+            🧹 Data Cleaning
         </a>
 
         <a href="#">
-             History
+            📈 Exploratory Data Analysis
         </a>
 
         <a href="#">
-             Settings
+            📊 Data Visualization
+        </a>
+
+        <a href="#">
+            🤖 Machine Learning
+        </a>
+
+        <a href="#">
+            📝 AI Reports
+        </a>
+
+        <a href="#">
+            📂 History
+        </a>
+
+        <a href="#">
+            ⚙️ Settings
         </a>
 
     </nav>
@@ -48,11 +62,11 @@
     <div class="sidebar-bottom">
 
         <a href="#">
-             Profile
+            👤 Profile
         </a>
 
         <a href="#">
-             Logout
+            🚪 Logout
         </a>
 
     </div>

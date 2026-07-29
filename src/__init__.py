@@ -1,7 +1,9 @@
 from flask import Flask
 
 from config import Config
+
 from src.routes.home import home_bp
+from src.routes.explorer import explorer_bp
 
 
 def create_app():
@@ -20,5 +22,6 @@ def create_app():
 
     # Register Blueprints
     app.register_blueprint(home_bp)
+    app.register_blueprint(explorer_bp)
 
     return app
