@@ -120,22 +120,27 @@ Upload Dataset | DataPilot AI
 
 <!-- Dataset Preview -->
 
-<section class="preview-section">
+{% if success %}
 
-    <div class="preview-card">
+<div class="success-card">
 
-        <h2>Dataset Preview</h2>
+    <h2>✅ Dataset Uploaded Successfully</h2>
 
-        <div class="table-container">
+    <p>{{ success }}</p>
 
-            {{ preview|safe }}
+    <br>
 
-        </div>
+    <a
+        href="{{ url_for('explorer.explorer') }}"
+        class="explorer-btn">
 
-    </div>
+        Open Dataset Explorer →
 
-</section>
+    </a>
 
+</div>
+
+{% endif %}
 {% endif %}
 
 {% endblock %}

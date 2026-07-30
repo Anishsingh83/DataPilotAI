@@ -1,11 +1,469 @@
 {% extends "dashboard_base.html" %}
 
-{% block title %}Dataset Explorer{% endblock %}
+{% block title %}
+Dataset Explorer | DataPilot AI
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/explorer.css') }}">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+{% endblock %}
 
 {% block content %}
 
-<h1>Dataset Explorer</h1>
+<div class="explorer-page">
 
-<p>Coming Soon...</p>
+    
+    <!-- Header -->
+   
+
+    <div class="explorer-header">
+
+        <div class="header-left">
+
+            <h1>Dataset Explorer</h1>
+
+            <p>
+                Explore, inspect and understand your uploaded dataset.
+            </p>
+
+        </div>
+
+        <div class="header-right">
+
+            <button id="refreshBtn" class="primary-btn">
+
+                <i class="fa-solid fa-rotate-right"></i>
+
+                Refresh
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+  
+    <!-- Dataset Banner -->
+  
+
+    <div class="dataset-banner">
+
+        <div class="dataset-icon">
+
+            <i class="fa-solid fa-database"></i>
+
+        </div>
+
+        <div class="dataset-content">
+
+            <h2>{{ dataset_name }}</h2>
+
+            <p>
+
+                Active Dataset
+
+            </p>
+
+            <div class="dataset-tags">
+
+                <span class="tag success">
+
+                    Uploaded
+
+                </span>
+
+                <span class="tag primary">
+
+                    CSV
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    
+    <!-- Summary Cards -->
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="summary-icon blue">
+
+                <i class="fa-solid fa-table"></i>
+
+            </div>
+
+            <div>
+
+                <h5>Total Rows</h5>
+
+                <h2>{{ dataset_info.rows }}</h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon green">
+
+                <i class="fa-solid fa-columns"></i>
+
+            </div>
+
+            <div>
+
+                <h5>Total Columns</h5>
+
+                <h2>{{ dataset_info.columns }}</h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon orange">
+
+                <i class="fa-solid fa-memory"></i>
+
+            </div>
+
+            <div>
+
+                <h5>Memory Usage</h5>
+
+                <h2>{{ dataset_info.memory }} KB</h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-icon purple">
+
+                <i class="fa-solid fa-file-csv"></i>
+
+            </div>
+
+            <div>
+
+                <h5>File Type</h5>
+
+                <h2>CSV</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+  
+    <!-- Toolbar -->
+    
+
+    <div class="toolbar">
+
+        <div class="toolbar-left">
+
+            <label>
+
+                Show
+
+            </label>
+
+            <select id="entriesSelect">
+
+                <option value="10">10</option>
+                <option value="25" selected>25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+
+            </select>
+
+            <span>
+
+                entries
+
+            </span>
+
+        </div>
+
+
+
+        <div class="toolbar-center">
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="tableSearch"
+                    placeholder="Search dataset...">
+
+            </div>
+
+        </div>
+
+
+
+        <div class="toolbar-right">
+
+            <button id="downloadCSV">
+
+                <i class="fa-solid fa-download"></i>
+
+                Export
+
+            </button>
+
+            <button id="reloadTable">
+
+                <i class="fa-solid fa-arrows-rotate"></i>
+
+                Reload
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    
+    <!-- Table Card -->
+   
+
+    <div class="table-card">
+
+        <div class="table-card-header">
+
+            <div>
+
+                <h3>
+
+                    Dataset Preview
+
+                </h3>
+
+                <p>
+
+                    Search, sort and browse your uploaded dataset.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="table-responsive">
+
+            {{ table|safe }}
+                    </div>
+
+    </div>
+
+
+   
+    <!-- Dataset Information -->
+   
+
+    <div class="info-grid">
+
+        <div class="info-card">
+
+            <h3>
+
+                Dataset Information
+
+            </h3>
+
+            <div class="info-list">
+
+                <div class="info-item">
+
+                    <span>
+
+                        Dataset Name
+
+                    </span>
+
+                    <strong>
+
+                        {{ dataset_name }}
+
+                    </strong>
+
+                </div>
+
+                <div class="info-item">
+
+                    <span>
+
+                        Rows
+
+                    </span>
+
+                    <strong>
+
+                        {{ dataset_info.rows }}
+
+                    </strong>
+
+                </div>
+
+                <div class="info-item">
+
+                    <span>
+
+                        Columns
+
+                    </span>
+
+                    <strong>
+
+                        {{ dataset_info.columns }}
+
+                    </strong>
+
+                </div>
+
+                <div class="info-item">
+
+                    <span>
+
+                        Memory Usage
+
+                    </span>
+
+                    <strong>
+
+                        {{ dataset_info.memory }} KB
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>
+
+                Available Features
+
+            </h3>
+
+            <div class="feature-grid">
+
+                <div class="feature-item">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <span>
+
+                        Search
+
+                    </span>
+
+                </div>
+
+                <div class="feature-item">
+
+                    <i class="fa-solid fa-arrow-down-wide-short"></i>
+
+                    <span>
+
+                        Sorting
+
+                    </span>
+
+                </div>
+
+                <div class="feature-item">
+
+                    <i class="fa-solid fa-table"></i>
+
+                    <span>
+
+                        Pagination
+
+                    </span>
+
+                </div>
+
+                <div class="feature-item">
+
+                    <i class="fa-solid fa-download"></i>
+
+                    <span>
+
+                        Export CSV
+
+                    </span>
+
+                </div>
+
+                <div class="feature-item">
+
+                    <i class="fa-solid fa-filter"></i>
+
+                    <span>
+
+                        Filtering
+
+                    </span>
+
+                </div>
+
+                <div class="feature-item">
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    <span>
+
+                        Analytics
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/explorer.js') }}"></script>
 
 {% endblock %}

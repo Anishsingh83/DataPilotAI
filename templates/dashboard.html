@@ -68,66 +68,154 @@ Dashboard | DataPilot AI
 </header>
 
 
-                <!-- Analytics Cards -->
-
+    <!-- Dataset Summary -->
 
 <section class="analytics">
+
+    {% if dataset.dataset_name %}
 
     <div class="analytics-grid">
 
         <div class="analytics-card">
 
-            <h3>Datasets</h3>
+            <h3>Current Dataset</h3>
 
-            <h2>24</h2>
-
-        </div>
-
-        <div class="analytics-card">
-
-            <h3>Reports</h3>
-
-            <h2>18</h2>
+            <h2>{{ dataset.dataset_name }}</h2>
 
         </div>
 
         <div class="analytics-card">
 
-            <h3>Visualizations</h3>
+            <h3>Rows</h3>
 
-            <h2>46</h2>
+            <h2>{{ summary.rows }}</h2>
 
         </div>
 
         <div class="analytics-card">
 
-            <h3>Storage</h3>
+            <h3>Columns</h3>
 
-            <h2>1.8 GB</h2>
+            <h2>{{ summary.columns }}</h2>
+
+        </div>
+
+        <div class="analytics-card">
+
+            <h3>Memory</h3>
+
+            <h2>{{ summary.memory }} KB</h2>
+
+        </div>
+
+        <div class="analytics-card">
+
+            <h3>Missing Values</h3>
+
+            <h2>{{ summary.missing }}</h2>
+
+        </div>
+
+        <div class="analytics-card">
+
+            <h3>Duplicate Rows</h3>
+
+            <h2>{{ summary.duplicates }}</h2>
 
         </div>
 
     </div>
 
-</section>
+    {% else %}
 
-<!-- Charts -->
+    <div class="analytics-card">
+
+        <h3>No Dataset Uploaded</h3>
+
+        <p>
+            Upload a dataset to start your analysis.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</section>
+<!-- Dataset Insights -->
 
 <section class="charts">
 
+    <!-- Dataset Information -->
+
     <div class="chart-card">
 
-        <h3>Upload Trend</h3>
+        <h3>Dataset Information</h3>
 
-        <canvas id="uploadChart"></canvas>
+        <div class="dataset-info">
+
+            <div class="info-row">
+                <span>Dataset Name</span>
+                <strong>{{ dataset.dataset_name }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Total Rows</span>
+                <strong>{{ summary.rows }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Total Columns</span>
+                <strong>{{ summary.columns }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Missing Values</span>
+                <strong>{{ summary.missing }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Duplicate Rows</span>
+                <strong>{{ summary.duplicates }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Memory Usage</span>
+                <strong>{{ summary.memory }} KB</strong>
+            </div>
+
+        </div>
 
     </div>
 
+    <!-- Quick Actions -->
+
     <div class="chart-card">
 
-        <h3>File Types</h3>
+        <h3>Quick Actions</h3>
 
-        <canvas id="fileTypeChart"></canvas>
+        <div class="quick-actions">
+
+            <a href="{{ url_for('explorer.explorer') }}" class="action-btn">
+                📋 Open Explorer
+            </a>
+
+            <a href="#" class="action-btn">
+                🧹 Data Cleaning
+            </a>
+
+            <a href="#" class="action-btn">
+                📊 EDA
+            </a>
+
+            <a href="#" class="action-btn">
+                🤖 Machine Learning
+            </a>
+
+            <a href="#" class="action-btn">
+                📑 Generate Report
+            </a>
+
+        </div>
 
     </div>
 

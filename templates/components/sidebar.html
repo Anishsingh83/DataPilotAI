@@ -1,72 +1,149 @@
 <aside class="sidebar">
 
+  
     <!-- Logo -->
+    
+
     <div class="sidebar-logo">
 
         <a href="{{ url_for('home.dashboard') }}">
 
-            <span>🚀</span>
+            <div class="logo-icon">
 
-            <h2>DataPilot AI</h2>
+                <i class="fa-solid fa-rocket"></i>
+
+            </div>
+
+            <div class="logo-text">
+
+                <h2>DataPilot AI</h2>
+
+                <span>Analytics Platform</span>
+
+            </div>
 
         </a>
 
     </div>
 
+   
     <!-- Navigation -->
+   
+
     <nav class="sidebar-menu">
 
-        <a href="{{ url_for('home.dashboard') }}">
-            📊 Dashboard
+        <a href="{{ url_for('home.dashboard') }}" class="active">
+
+            <i class="fa-solid fa-gauge-high"></i>
+
+            <span>Dashboard</span>
+
         </a>
 
         <a href="{{ url_for('home.upload') }}">
-            📤 Upload Dataset
+
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+
+            <span>Upload Dataset</span>
+
         </a>
 
         <a href="{{ url_for('explorer.explorer') }}">
-            📋 Dataset Explorer
+
+            <i class="fa-solid fa-table"></i>
+
+            <span>Dataset Explorer</span>
+
         </a>
 
         <a href="#">
-            🧹 Data Cleaning
+
+            <i class="fa-solid fa-broom"></i>
+
+            <span>Data Cleaning</span>
+
         </a>
 
         <a href="#">
-            📈 Exploratory Data Analysis
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>EDA</span>
+
         </a>
 
         <a href="#">
-            📊 Data Visualization
+
+            <i class="fa-solid fa-chart-column"></i>
+
+            <span>Visualization</span>
+
         </a>
 
         <a href="#">
-            🤖 Machine Learning
+
+            <i class="fa-solid fa-brain"></i>
+
+            <span>Machine Learning</span>
+
         </a>
 
         <a href="#">
-            📝 AI Reports
+
+            <i class="fa-solid fa-file-lines"></i>
+
+            <span>AI Reports</span>
+
         </a>
 
         <a href="#">
-            📂 History
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            <span>History</span>
+
         </a>
 
         <a href="#">
-            ⚙️ Settings
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
         </a>
 
     </nav>
 
+
     <!-- Bottom -->
+
+
     <div class="sidebar-bottom">
 
-        <a href="#">
-            👤 Profile
-        </a>
+        <div class="user-card">
+
+            <div class="user-avatar">
+
+                A
+
+            </div>
+
+            <div class="user-details">
+
+                <h4>Admin</h4>
+
+                <span>Data Scientist</span>
+
+            </div>
+
+        </div>
 
         <a href="#">
-            🚪 Logout
+
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+            <span>Logout</span>
+
         </a>
 
     </div>

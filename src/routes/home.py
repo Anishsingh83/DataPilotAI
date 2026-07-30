@@ -1,5 +1,13 @@
 from flask import Blueprint, render_template, request
 
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    session
+)
+
+from src.services.session_service import SessionService
 from src.services.upload_service import UploadService
 from src.services.dataset_service import DatasetService
 
@@ -15,8 +23,24 @@ def home():
 # Dashboard Page
 @home_bp.route("/dashboard")
 def dashboard():
-    return render_template("dashboard.html")
 
+    dataset = SessionService.get_current_dataset()
+
+    if dataset["dataset_path"]:
+
+        summary = DatasetService.dashboard_summary(
+            dataset["dataset_path"]
+        )
+
+    else:
+
+        summary = None
+
+    return render_template(
+        "dashboard.html",
+        summary=summary,
+        dataset=dataset
+    )
 
 # Upload Dataset
 @home_bp.route("/upload", methods=["GET", "POST"])
@@ -33,10 +57,14 @@ def upload():
         if file and file.filename:
 
             filename, upload_path = UploadService.save_file(file)
-
+            
+            SessionService.set_current_dataset(
+                filename,
+                upload_path
+            )
             df = DatasetService.read_dataset(upload_path)
 
-            preview = DatasetService.preview(df)
+            
 
             summary = DatasetService.summary(df)
 
@@ -45,6 +73,5 @@ def upload():
     return render_template(
         "upload.html",
         success=success,
-        preview=preview,
         summary=summary
     )

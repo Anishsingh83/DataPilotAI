@@ -253,3 +253,41 @@
     background:#F8FAFC;
 
 }
+
+.success-card{
+
+    background:#ffffff;
+
+    border-radius:12px;
+
+    padding:25px;
+
+    margin-top:25px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.explorer-btn{
+
+    display:inline-block;
+
+    padding:12px 20px;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    font-weight:600;
+
+}
+
+.explorer-btn:hover{
+
+    opacity:.9;
+
+}
