@@ -4,12 +4,10 @@ from config import Config
 
 from src.routes.home import home_bp
 from src.routes.explorer import explorer_bp
+from src.routes.cleaning import cleaning_bp
 
 
 def create_app():
-    """
-    Application Factory
-    """
 
     app = Flask(
         __name__,
@@ -17,11 +15,10 @@ def create_app():
         static_folder="../static"
     )
 
-    # Load configuration
     app.config.from_object(Config)
 
-    # Register Blueprints
     app.register_blueprint(home_bp)
     app.register_blueprint(explorer_bp)
+    app.register_blueprint(cleaning_bp)
 
     return app

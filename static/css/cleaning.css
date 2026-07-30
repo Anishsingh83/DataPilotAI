@@ -1,0 +1,510 @@
+.cleaning-page{
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+.cleaning-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.page-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 16px;
+    border-radius:40px;
+    background:#eef5ff;
+    color:#2563eb;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+.cleaning-header h1{
+    font-size:34px;
+    font-weight:700;
+    color:#111827;
+    margin-bottom:10px;
+}
+
+.cleaning-header p{
+    color:#6b7280;
+    font-size:15px;
+    line-height:1.7;
+    max-width:650px;
+}
+
+.dataset-badge{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    background:#fff;
+    padding:18px 24px;
+    border-radius:18px;
+    border:1px solid #e5e7eb;
+    box-shadow:0 8px 30px rgba(0,0,0,.05);
+}
+
+.dataset-badge i{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    color:#2563eb;
+    background:#eef4ff;
+}
+
+.dataset-badge span{
+    display:block;
+    color:#6b7280;
+    font-size:13px;
+}
+
+.dataset-badge h4{
+    margin-top:4px;
+    font-size:17px;
+    color:#111827;
+}
+
+/* ===========================
+   SUMMARY
+=========================== */
+
+.summary-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:22px;
+}
+
+.summary-card{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+    border:1px solid #e5e7eb;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    transition:.25s;
+    box-shadow:0 8px 24px rgba(0,0,0,.05);
+}
+
+.summary-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 18px 40px rgba(0,0,0,.08);
+}
+
+.summary-card span{
+    display:block;
+    color:#6b7280;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.summary-card h2{
+    font-size:30px;
+    color:#111827;
+    font-weight:700;
+}
+
+.summary-icon{
+    width:62px;
+    height:62px;
+    border-radius:16px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    flex-shrink:0;
+}
+
+.summary-icon.blue{
+    background:#eaf2ff;
+    color:#2563eb;
+}
+
+.summary-icon.green{
+    background:#ecfdf3;
+    color:#16a34a;
+}
+
+.summary-icon.orange{
+    background:#fff7ed;
+    color:#ea580c;
+}
+
+.summary-icon.red{
+    background:#fef2f2;
+    color:#dc2626;
+}
+
+.summary-icon.purple{
+    background:#f5f3ff;
+    color:#7c3aed;
+}
+
+/* ===========================
+   WORKSPACE
+=========================== */
+
+.workspace{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:28px;
+    align-items:start;
+}
+
+.tool-panel{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:24px;
+}
+
+.preview-panel{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+/* ===========================
+   TOOL CARDS
+=========================== */
+
+.tool-card{
+    background:#fff;
+    border-radius:20px;
+    border:1px solid #e5e7eb;
+    padding:25px;
+    box-shadow:0 8px 28px rgba(0,0,0,.05);
+    transition:.25s;
+}
+
+.tool-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 36px rgba(0,0,0,.08);
+}
+
+.tool-header{
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    margin-bottom:22px;
+}
+
+.tool-header h3{
+    font-size:20px;
+    color:#111827;
+    margin-bottom:6px;
+}
+
+.tool-header p{
+    color:#6b7280;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.tool-icon{
+    width:56px;
+    height:56px;
+    border-radius:16px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:20px;
+    flex-shrink:0;
+}
+
+.tool-icon.blue{
+    background:#eaf2ff;
+    color:#2563eb;
+}
+
+.tool-icon.green{
+    background:#ecfdf3;
+    color:#16a34a;
+}
+
+.tool-icon.orange{
+    background:#fff7ed;
+    color:#ea580c;
+}
+
+.tool-icon.red{
+    background:#fef2f2;
+    color:#dc2626;
+}
+
+.tool-icon.purple{
+    background:#f5f3ff;
+    color:#7c3aed;
+}
+
+/* ===========================
+   FORM ELEMENTS
+=========================== */
+
+.tool-card label{
+    display:block;
+    margin-bottom:8px;
+    font-size:14px;
+    font-weight:600;
+    color:#374151;
+}
+
+.input{
+    width:100%;
+    padding:12px 16px;
+    border:1px solid #d1d5db;
+    border-radius:12px;
+    font-size:14px;
+    background:#fff;
+    transition:.25s;
+    outline:none;
+}
+
+.input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
+
+.input::placeholder{
+    color:#9ca3af;
+}
+
+.multi-select{
+    min-height:160px;
+}
+
+.multi-select option{
+    padding:10px;
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.action-btn,
+.download-btn{
+    width:100%;
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+}
+
+.btn-primary{
+    border:none;
+    border-radius:12px;
+    padding:13px 18px;
+    background:#2563eb;
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.btn-primary:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+.btn-primary:active{
+    transform:scale(.98);
+}
+
+/* ===========================
+   SUMMARY TABLE
+=========================== */
+
+.summary-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.summary-table tr{
+    border-bottom:1px solid #edf0f4;
+}
+
+.summary-table tr:last-child{
+    border:none;
+}
+
+.summary-table td{
+    padding:14px 0;
+    font-size:14px;
+}
+
+.summary-table td:first-child{
+    color:#6b7280;
+    font-weight:500;
+}
+
+.summary-table td:last-child{
+    color:#111827;
+    text-align:right;
+    font-weight:700;
+}
+
+/* ===========================
+   TIPS
+=========================== */
+
+.tips-list{
+    margin:0;
+    padding-left:18px;
+}
+
+.tips-list li{
+    margin-bottom:12px;
+    color:#4b5563;
+    line-height:1.6;
+}
+
+.tips-list li:last-child{
+    margin-bottom:0;
+}
+
+/* ===========================
+   EXPORT
+=========================== */
+
+.export-card{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+}
+
+.export-card .tool-header h3,
+.export-card .tool-header p{
+    color:#fff;
+}
+
+.export-card .tool-icon{
+    background:rgba(255,255,255,.18);
+    color:#fff;
+}
+
+.export-card .btn-primary{
+    background:#fff;
+    color:#2563eb;
+}
+
+.export-card .btn-primary:hover{
+    background:#f3f4f6;
+}
+
+/* ===========================
+   STICKY PANEL
+=========================== */
+
+.sticky-card{
+    position:sticky;
+    top:25px;
+}
+
+/* ===========================
+   UTILITIES
+=========================== */
+
+.mt-20{
+    margin-top:20px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:1200px){
+
+    .workspace{
+        grid-template-columns:1fr;
+    }
+
+    .preview-panel{
+        order:-1;
+    }
+
+}
+
+@media(max-width:992px){
+
+    .tool-panel{
+        grid-template-columns:1fr;
+    }
+
+    .summary-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:768px){
+
+    .cleaning-page{
+        padding:20px;
+    }
+
+    .cleaning-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .dataset-badge{
+        width:100%;
+    }
+
+    .summary-grid{
+        grid-template-columns:1fr;
+    }
+
+    .summary-card{
+        padding:18px;
+    }
+
+    .summary-card h2{
+        font-size:24px;
+    }
+
+    .tool-card{
+        padding:20px;
+    }
+
+    .tool-header{
+        flex-direction:column;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .page-tag{
+        font-size:12px;
+    }
+
+    .cleaning-header h1{
+        font-size:28px;
+    }
+
+    .tool-header h3{
+        font-size:18px;
+    }
+
+    .btn-primary{
+        font-size:14px;
+        padding:12px;
+    }
+
+}

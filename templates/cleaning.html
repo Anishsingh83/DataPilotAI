@@ -1,0 +1,606 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}Data Cleaning | DataPilot AI{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/cleaning.css') }}">
+
+{% endblock %}
+{% block content %}
+
+
+
+<div class="cleaning-page">
+
+    <div class="cleaning-header">
+
+        <div>
+
+            <span class="page-tag">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                Data Preparation
+            </span>
+
+            <h1>Data Cleaning Workspace</h1>
+
+            <p>
+                Clean, standardize and prepare your dataset before visualization
+                or machine learning.
+            </p>
+
+        </div>
+
+        <div class="dataset-badge">
+
+            <i class="fa-solid fa-database"></i>
+
+            <div>
+
+                <span>Current Dataset</span>
+
+                <h4>{{ dataset.dataset_name }}</h4>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Summary -->
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="summary-icon blue">
+                <i class="fa-solid fa-table"></i>
+            </div>
+
+            <div>
+
+                <span>Total Rows</span>
+
+                <h2>{{ summary.rows }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="summary-card">
+
+            <div class="summary-icon green">
+                <i class="fa-solid fa-table-columns"></i>
+            </div>
+
+            <div>
+
+                <span>Total Columns</span>
+
+                <h2>{{ summary.columns }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="summary-card">
+
+            <div class="summary-icon orange">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+
+            <div>
+
+                <span>Missing Values</span>
+
+                <h2>{{ summary.missing_values }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="summary-card">
+
+            <div class="summary-icon red">
+                <i class="fa-solid fa-copy"></i>
+            </div>
+
+            <div>
+
+                <span>Duplicate Rows</span>
+
+                <h2>{{ summary.duplicate_rows }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="summary-card">
+
+            <div class="summary-icon purple">
+                <i class="fa-solid fa-memory"></i>
+            </div>
+
+            <div>
+
+                <span>Memory Usage</span>
+
+                <h2>{{ summary.memory }} KB</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Workspace -->
+
+    <div class="workspace">
+
+        <!-- Left -->
+
+        <div class="tool-panel">
+
+            <!-- Missing Values -->
+
+            <div class="tool-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon blue">
+
+                        <i class="fa-solid fa-droplet"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Missing Values</h3>
+
+                        <p>
+                            Handle null values using different filling strategies.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <label>Select Strategy</label>
+
+                <select
+                    id="fillStrategy"
+                    class="input"
+                >
+
+                    <option>Fill with Mean</option>
+
+                    <option>Fill with Median</option>
+
+                    <option>Fill with Mode</option>
+
+                    <option>Fill with 0</option>
+
+                    <option>Drop Missing Rows</option>
+
+                </select>
+
+                <button
+                    id="fillMissingBtn"
+                    class="btn-primary action-btn"
+                >
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Apply Cleaning
+
+                </button>
+
+            </div>
+
+            <!-- Duplicate Rows -->
+
+            <div class="tool-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon red">
+
+                        <i class="fa-solid fa-clone"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Duplicate Rows</h3>
+
+                        <p>
+                            Detect and permanently remove duplicate records.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <button
+                    id="removeDuplicateBtn"
+                    class="btn-primary action-btn"
+                >
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    Remove Duplicates
+
+                </button>
+
+            </div>
+
+            <!-- Drop Columns -->
+
+            <div class="tool-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon orange">
+
+                        <i class="fa-solid fa-columns"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Drop Columns</h3>
+
+                        <p>
+                            Select one or more unwanted columns to remove.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <label>Select Columns</label>
+
+                <select
+                    id="dropColumns"
+                    multiple
+                    class="input multi-select"
+                >
+
+                    {% for column in summary.column_names %}
+
+                    <option value="{{ column }}">
+
+                        {{ column }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+                <button
+                    id="dropColumnsBtn"
+                    class="btn-primary action-btn"
+                >
+
+                    <i class="fa-solid fa-trash-can"></i>
+
+                    Drop Selected Columns
+
+                </button>
+
+            </div>
+                        <!-- Rename Column -->
+
+            <div class="tool-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon green">
+
+                        <i class="fa-solid fa-pen-to-square"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Rename Column</h3>
+
+                        <p>
+                            Rename existing columns with meaningful names.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <label>Existing Column</label>
+
+                <input
+                    id="oldColumn"
+                    class="input"
+                    placeholder="Existing Column Name"
+                >
+
+                <label class="mt-20">New Column Name</label>
+
+                <input
+                    id="newColumn"
+                    class="input"
+                    placeholder="New Column Name"
+                >
+
+                <button
+                    id="renameColumnBtn"
+                    class="btn-primary action-btn"
+                >
+
+                    <i class="fa-solid fa-pen"></i>
+
+                    Rename Column
+
+                </button>
+
+            </div>
+
+            <!-- Change Data Type -->
+
+            <div class="tool-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon purple">
+
+                        <i class="fa-solid fa-code"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Change Data Type</h3>
+
+                        <p>
+                            Convert columns into the correct data type.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <label>Select Column</label>
+
+                <select
+                    id="dtypeColumn"
+                    class="input"
+                >
+
+                    {% for column in summary.column_names %}
+
+                    <option value="{{ column }}">
+                        {{ column }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+                <label class="mt-20">Select Data Type</label>
+
+                <select
+                    id="dtype"
+                    class="input"
+                >
+
+                    <option value="int">Integer</option>
+
+                    <option value="float">Float</option>
+
+                    <option value="string">String</option>
+
+                    <option value="datetime">Datetime</option>
+
+                    <option value="category">Category</option>
+
+                    <option value="bool">Boolean</option>
+
+                </select>
+
+                <button
+                    id="changeTypeBtn"
+                    class="btn-primary action-btn"
+                >
+
+                    <i class="fa-solid fa-arrows-rotate"></i>
+
+                    Change Data Type
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Right Panel -->
+
+        <div class="preview-panel">
+
+            <!-- Dataset Overview -->
+
+            <div class="tool-card sticky-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon blue">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Cleaning Summary</h3>
+
+                        <p>
+                            Current statistics of your dataset.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <table class="summary-table">
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>Dataset Name</td>
+
+                            <td>{{ dataset.dataset_name }}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Total Rows</td>
+
+                            <td>{{ summary.rows }}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Total Columns</td>
+
+                            <td>{{ summary.columns }}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Missing Values</td>
+
+                            <td>{{ summary.missing_values }}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Duplicate Rows</td>
+
+                            <td>{{ summary.duplicate_rows }}</td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Memory Usage</td>
+
+                            <td>{{ summary.memory }} KB</td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- Tips -->
+
+            <div class="tool-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon orange">
+
+                        <i class="fa-solid fa-lightbulb"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Best Practices</h3>
+
+                    </div>
+
+                </div>
+
+                <ul class="tips-list">
+
+                    <li>
+                        Remove duplicate rows before training ML models.
+                    </li>
+
+                    <li>
+                        Fill missing values only when appropriate.
+                    </li>
+
+                    <li>
+                        Rename columns using descriptive names.
+                    </li>
+
+                    <li>
+                        Convert columns into correct data types.
+                    </li>
+
+                    <li>
+                        Download the cleaned dataset before moving to EDA.
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- Export -->
+
+            <div class="tool-card export-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon green">
+
+                        <i class="fa-solid fa-download"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Export Dataset</h3>
+
+                        <p>
+                            Download the cleaned dataset after all transformations.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <button
+                    id="downloadDatasetBtn"
+                    class="btn-primary download-btn"
+                >
+
+                    <i class="fa-solid fa-file-arrow-down"></i>
+
+                    Download Cleaned Dataset
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/cleaning.js') }}"></script>
+
+{% endblock %}

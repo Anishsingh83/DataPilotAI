@@ -1,65 +1,52 @@
 <aside class="sidebar">
 
-  
-    <!-- Logo -->
-    
-
     <div class="sidebar-logo">
 
         <a href="{{ url_for('home.dashboard') }}">
 
             <div class="logo-icon">
-
                 <i class="fa-solid fa-rocket"></i>
-
             </div>
 
             <div class="logo-text">
-
                 <h2>DataPilot AI</h2>
-
                 <span>Analytics Platform</span>
-
             </div>
 
         </a>
 
     </div>
 
-   
-    <!-- Navigation -->
-   
-
     <nav class="sidebar-menu">
 
-        <a href="{{ url_for('home.dashboard') }}" class="active">
+        <a href="{{ url_for('home.dashboard') }}"
+           class="{% if request.endpoint == 'home.dashboard' %}active{% endif %}">
 
             <i class="fa-solid fa-gauge-high"></i>
-
             <span>Dashboard</span>
 
         </a>
 
-        <a href="{{ url_for('home.upload') }}">
+        <a href="{{ url_for('home.upload') }}"
+           class="{% if request.endpoint == 'home.upload' %}active{% endif %}">
 
             <i class="fa-solid fa-cloud-arrow-up"></i>
-
             <span>Upload Dataset</span>
 
         </a>
 
-        <a href="{{ url_for('explorer.explorer') }}">
+        <a href="{{ url_for('explorer.explorer') }}"
+           class="{% if request.endpoint == 'explorer.explorer' %}active{% endif %}">
 
             <i class="fa-solid fa-table"></i>
-
             <span>Dataset Explorer</span>
 
         </a>
 
-        <a href="#">
+        <a href="{{ url_for('cleaning.cleaning') }}"
+           class="{% if request.endpoint == 'cleaning.cleaning' %}active{% endif %}">
 
             <i class="fa-solid fa-broom"></i>
-
             <span>Data Cleaning</span>
 
         </a>
@@ -67,7 +54,6 @@
         <a href="#">
 
             <i class="fa-solid fa-chart-line"></i>
-
             <span>EDA</span>
 
         </a>
@@ -75,7 +61,6 @@
         <a href="#">
 
             <i class="fa-solid fa-chart-column"></i>
-
             <span>Visualization</span>
 
         </a>
@@ -83,7 +68,6 @@
         <a href="#">
 
             <i class="fa-solid fa-brain"></i>
-
             <span>Machine Learning</span>
 
         </a>
@@ -91,7 +75,6 @@
         <a href="#">
 
             <i class="fa-solid fa-file-lines"></i>
-
             <span>AI Reports</span>
 
         </a>
@@ -99,7 +82,6 @@
         <a href="#">
 
             <i class="fa-solid fa-clock-rotate-left"></i>
-
             <span>History</span>
 
         </a>
@@ -107,33 +89,23 @@
         <a href="#">
 
             <i class="fa-solid fa-gear"></i>
-
             <span>Settings</span>
 
         </a>
 
     </nav>
 
-
-    <!-- Bottom -->
-
-
     <div class="sidebar-bottom">
 
         <div class="user-card">
 
             <div class="user-avatar">
-
                 A
-
             </div>
 
             <div class="user-details">
-
                 <h4>Admin</h4>
-
                 <span>Data Scientist</span>
-
             </div>
 
         </div>
@@ -141,7 +113,6 @@
         <a href="#">
 
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
-
             <span>Logout</span>
 
         </a>
