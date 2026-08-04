@@ -28,6 +28,10 @@ class CleaningService:
             "column_names": list(df.columns)
         }
 
+    
+    # Remove Duplicate Rows
+    
+
     @staticmethod
     def remove_duplicates_from_file(dataset_path):
 
@@ -36,6 +40,10 @@ class CleaningService:
         df = df.drop_duplicates()
 
         CleaningService.save_dataset(df, dataset_path)
+
+    
+    # Drop Missing Rows
+    
 
     @staticmethod
     def drop_missing_from_file(dataset_path):
@@ -46,67 +54,183 @@ class CleaningService:
 
         CleaningService.save_dataset(df, dataset_path)
 
+    
+    # Fill Missing Values
+    
+
     @staticmethod
-    def fill_missing_from_file(dataset_path, value):
+    def fill_missing_from_file(dataset_path, strategy):
 
         df = CleaningService.load_dataset(dataset_path)
 
-        df = df.fillna(value)
+        try:
 
-        CleaningService.save_dataset(df, dataset_path)
+            if strategy == "Fill with Mean":
+
+                numeric_cols = df.select_dtypes(include="number").columns
+
+                df[numeric_cols] = df[numeric_cols].fillna(
+                    df[numeric_cols].mean()
+                )
+
+            elif strategy == "Fill with Median":
+
+                numeric_cols = df.select_dtypes(include="number").columns
+
+                df[numeric_cols] = df[numeric_cols].fillna(
+                    df[numeric_cols].median()
+                )
+
+            elif strategy == "Fill with Mode":
+
+                df = df.fillna(df.mode().iloc[0])
+
+            elif strategy == "Fill with 0":
+
+                df = df.fillna(0)
+
+            elif strategy == "Drop Missing Rows":
+
+                df = df.dropna()
+
+            CleaningService.save_dataset(df, dataset_path)
+
+        except Exception as e:
+
+            raise Exception(
+                f"Error while filling missing values: {e}"
+            )
+
+    
+    # Drop Columns
+    
 
     @staticmethod
     def drop_columns_from_file(dataset_path, columns):
 
         df = CleaningService.load_dataset(dataset_path)
 
-        columns = [
+        valid_columns = [
+
             column
+
             for column in columns
+
             if column in df.columns
+
         ]
 
-        if columns:
-            df = df.drop(columns=columns)
+        if valid_columns:
 
-        CleaningService.save_dataset(df, dataset_path)
+            df = df.drop(columns=valid_columns)
+
+            CleaningService.save_dataset(df, dataset_path)
+
+    
+    # Rename Column
+    
 
     @staticmethod
-    def rename_column_in_file(dataset_path, old_name, new_name):
+    def rename_column_in_file(
+        dataset_path,
+        old_name,
+        new_name
+    ):
 
         df = CleaningService.load_dataset(dataset_path)
 
-        if old_name in df.columns:
-            df = df.rename(
-                columns={
-                    old_name: new_name
-                }
+        if old_name not in df.columns:
+
+            raise Exception("Column not found.")
+
+        if new_name in df.columns:
+
+            raise Exception(
+                "Column name already exists."
             )
 
+        df = df.rename(
+
+            columns={
+                old_name: new_name
+            }
+
+        )
+
         CleaningService.save_dataset(df, dataset_path)
 
+    
+    # Change Data Type
+    
+
     @staticmethod
-    def change_dtype_in_file(dataset_path, column, dtype):
+    def change_dtype_in_file(
+        dataset_path,
+        column,
+        dtype
+    ):
 
         df = CleaningService.load_dataset(dataset_path)
 
-        if column in df.columns:
+        if column not in df.columns:
 
-            try:
+            raise Exception("Column not found.")
 
-                if dtype == "datetime":
-                    df[column] = pd.to_datetime(df[column])
+        try:
 
-                elif dtype == "category":
-                    df[column] = df[column].astype("category")
+            if dtype == "datetime":
 
-                elif dtype == "string":
-                    df[column] = df[column].astype(str)
+                df[column] = pd.to_datetime(
 
-                else:
-                    df[column] = df[column].astype(dtype)
+                    df[column],
 
-            except Exception:
-                pass
+                    errors="coerce"
 
-        CleaningService.save_dataset(df, dataset_path)
+                )
+
+            elif dtype == "category":
+
+                df[column] = df[column].astype(
+                    "category"
+                )
+
+            elif dtype == "string":
+
+                df[column] = df[column].astype(
+                    "string"
+                )
+
+            elif dtype == "bool":
+
+                df[column] = df[column].astype(
+                    bool
+                )
+
+            elif dtype == "int":
+
+                df[column] = df[column].astype(
+                    "Int64"
+                )
+
+            elif dtype == "float":
+
+                df[column] = df[column].astype(
+                    float
+                )
+
+            else:
+
+                raise Exception(
+                    "Unsupported data type."
+                )
+
+            CleaningService.save_dataset(
+                df,
+                dataset_path
+            )
+
+        except Exception as e:
+
+            raise Exception(
+                f"Unable to convert datatype: {e}"
+            )

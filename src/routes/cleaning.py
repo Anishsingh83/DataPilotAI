@@ -1,10 +1,22 @@
-from flask import Blueprint, render_template, redirect, url_for
-from flask import request, jsonify
+from flask import (
+    Blueprint,
+    render_template,
+    redirect,
+    url_for,
+    request,
+    jsonify,
+    send_file
+)
 
 from src.services.session_service import SessionService
 from src.services.cleaning_service import CleaningService
 
+
 cleaning_bp = Blueprint("cleaning", __name__)
+
+
+
+# Cleaning Dashboard
 
 
 @cleaning_bp.route("/cleaning")
@@ -26,115 +38,208 @@ def cleaning():
     )
 
 
+
+# Remove Duplicates
+
+
 @cleaning_bp.route("/cleaning/remove-duplicates", methods=["POST"])
 def remove_duplicates():
 
-    dataset = SessionService.get_current_dataset()
+    try:
 
-    CleaningService.remove_duplicates_from_file(
-        dataset["dataset_path"]
-    )
+        dataset = SessionService.get_current_dataset()
 
-    return jsonify({
-        "success": True,
-        "message": "Duplicate rows removed successfully."
-    })
+        CleaningService.remove_duplicates_from_file(
+            dataset["dataset_path"]
+        )
+
+        return jsonify({
+            "success": True,
+            "message": "Duplicate rows removed successfully."
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 400
+
+
+
+# Drop Missing Rows
 
 
 @cleaning_bp.route("/cleaning/drop-missing", methods=["POST"])
 def drop_missing():
 
-    dataset = SessionService.get_current_dataset()
+    try:
 
-    CleaningService.drop_missing_from_file(
-        dataset["dataset_path"]
-    )
+        dataset = SessionService.get_current_dataset()
 
-    return jsonify({
-        "success": True,
-        "message": "Missing rows removed successfully."
-    })
+        CleaningService.drop_missing_from_file(
+            dataset["dataset_path"]
+        )
+
+        return jsonify({
+            "success": True,
+            "message": "Missing rows removed successfully."
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 400
+
+
+
+# Fill Missing Values
 
 
 @cleaning_bp.route("/cleaning/fill-missing", methods=["POST"])
 def fill_missing():
 
-    data = request.get_json()
+    try:
 
-    value = data.get("value", 0)
+        data = request.get_json()
 
-    dataset = SessionService.get_current_dataset()
+        strategy = data["strategy"]
 
-    CleaningService.fill_missing_from_file(
-        dataset["dataset_path"],
-        value
-    )
+        dataset = SessionService.get_current_dataset()
 
-    return jsonify({
-        "success": True,
-        "message": "Missing values filled successfully."
-    })
+        CleaningService.fill_missing_from_file(
+            dataset["dataset_path"],
+            strategy
+        )
+
+        return jsonify({
+            "success": True,
+            "message": "Missing values handled successfully."
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 400
+
+
+
+# Drop Columns
 
 
 @cleaning_bp.route("/cleaning/drop-columns", methods=["POST"])
 def drop_columns():
 
-    data = request.get_json()
+    try:
 
-    columns = data.get("columns", [])
+        data = request.get_json()
 
-    dataset = SessionService.get_current_dataset()
+        columns = data.get("columns", [])
 
-    CleaningService.drop_columns_from_file(
-        dataset["dataset_path"],
-        columns
-    )
+        dataset = SessionService.get_current_dataset()
 
-    return jsonify({
-        "success": True,
-        "message": "Columns removed successfully."
-    })
+        CleaningService.drop_columns_from_file(
+            dataset["dataset_path"],
+            columns
+        )
+
+        return jsonify({
+            "success": True,
+            "message": "Selected columns removed successfully."
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 400
+
+
+
+# Rename Column
 
 
 @cleaning_bp.route("/cleaning/rename-column", methods=["POST"])
 def rename_column():
 
-    data = request.get_json()
+    try:
 
-    old_name = data["old_name"]
-    new_name = data["new_name"]
+        data = request.get_json()
 
-    dataset = SessionService.get_current_dataset()
+        old_name = data["old_column"]
+        new_name = data["new_column"]
 
-    CleaningService.rename_column_in_file(
-        dataset["dataset_path"],
-        old_name,
-        new_name
-    )
+        dataset = SessionService.get_current_dataset()
 
-    return jsonify({
-        "success": True,
-        "message": "Column renamed successfully."
-    })
+        CleaningService.rename_column_in_file(
+            dataset["dataset_path"],
+            old_name,
+            new_name
+        )
+
+        return jsonify({
+            "success": True,
+            "message": "Column renamed successfully."
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 400
+
+
+
+# Change Data Type
 
 
 @cleaning_bp.route("/cleaning/change-dtype", methods=["POST"])
 def change_dtype():
 
-    data = request.get_json()
+    try:
 
-    column = data["column"]
-    dtype = data["dtype"]
+        data = request.get_json()
+
+        column = data["column"]
+        dtype = data["dtype"]
+
+        dataset = SessionService.get_current_dataset()
+
+        CleaningService.change_dtype_in_file(
+            dataset["dataset_path"],
+            column,
+            dtype
+        )
+
+        return jsonify({
+            "success": True,
+            "message": "Data type updated successfully."
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 400
+
+
+
+# Download Dataset
+
+
+@cleaning_bp.route("/cleaning/download")
+def download_dataset():
 
     dataset = SessionService.get_current_dataset()
 
-    CleaningService.change_dtype_in_file(
+    return send_file(
         dataset["dataset_path"],
-        column,
-        dtype
+        as_attachment=True
     )
-
-    return jsonify({
-        "success": True,
-        "message": "Data type updated successfully."
-    })

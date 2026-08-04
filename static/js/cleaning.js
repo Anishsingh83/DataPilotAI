@@ -5,13 +5,13 @@ const renameColumnBtn = document.getElementById("renameColumnBtn");
 const changeTypeBtn = document.getElementById("changeTypeBtn");
 const downloadDatasetBtn = document.getElementById("downloadDatasetBtn");
 
-/* ===========================
-   Helpers
-=========================== */
+
+            // Helpers
+
 
 function showLoading(button, text = "Processing...") {
 
-    button.dataset.original = button.innerHTML;
+    button.dataset.originalText = button.innerHTML;
 
     button.disabled = true;
 
@@ -21,38 +21,44 @@ function showLoading(button, text = "Processing...") {
     `;
 }
 
-function resetButton(button) {
+function hideLoading(button) {
 
     button.disabled = false;
 
-    button.innerHTML = button.dataset.original;
+    button.innerHTML = button.dataset.originalText;
 }
 
-async function postRequest(url, payload, button) {
+async function sendRequest(url, payload, button) {
 
     showLoading(button);
 
     try {
 
         const response = await fetch(url, {
-
             method: "POST",
-
             headers: {
                 "Content-Type": "application/json"
             },
-
             body: JSON.stringify(payload)
-
         });
 
-        const data = await response.json();
+        const result = await response.json();
 
-        alert(data.message);
+        if (result.success) {
 
-        if (data.success) {
+            showSuccess(result.message);
 
-            location.reload();
+            setTimeout(() => {
+
+                location.reload();
+
+            }, 500);
+
+        }
+        
+        else {
+
+            showError(result.message || "Operation failed.");
 
         }
 
@@ -62,95 +68,83 @@ async function postRequest(url, payload, button) {
 
         console.error(error);
 
-        alert("Something went wrong.");
+        showError("Server error. Please try again.");
 
     }
 
     finally {
 
-        resetButton(button);
+        hideLoading(button);
 
     }
 
 }
 
-/* ===========================
-   Missing Values
-=========================== */
+
+        // Fill Missing Values
+
 
 fillMissingBtn?.addEventListener("click", () => {
 
     const strategy = document.getElementById("fillStrategy").value;
 
-    postRequest(
-
+    sendRequest(
         "/cleaning/fill-missing",
-
         {
-            strategy: strategy
+            strategy
         },
-
         fillMissingBtn
-
     );
 
 });
 
-/* ===========================
-   Remove Duplicates
-=========================== */
+
+        // Remove Duplicates
+
 
 removeDuplicateBtn?.addEventListener("click", () => {
 
-    if (!confirm("Remove duplicate rows?")) return;
+    if (!confirm("Remove all duplicate rows?")) return;
 
-    postRequest(
-
+    sendRequest(
         "/cleaning/remove-duplicates",
-
         {},
-
         removeDuplicateBtn
-
     );
 
 });
 
-/* ===========================
-   Drop Columns
-=========================== */
+
+            // Drop Columns
+
 
 dropColumnsBtn?.addEventListener("click", () => {
 
     const select = document.getElementById("dropColumns");
 
-    const columns = [...select.selectedOptions].map(option => option.value);
+    const columns = [...select.selectedOptions].map(col => col.value);
 
     if (columns.length === 0) {
 
-        alert("Please select at least one column.");
+        showWarning("Please select at least one column.");
 
         return;
 
     }
 
-    postRequest(
-
+    sendRequest(
         "/cleaning/drop-columns",
-
         {
-            columns: columns
+            columns
         },
-
         dropColumnsBtn
-
     );
 
 });
 
-/* ===========================
-   Rename Column
-=========================== */
+
+            // Rename Column
+
 
 renameColumnBtn?.addEventListener("click", () => {
 
@@ -160,30 +154,26 @@ renameColumnBtn?.addEventListener("click", () => {
 
     if (!oldColumn || !newColumn) {
 
-        alert("Please enter both column names.");
+        showWarning("Please enter both column names.");
 
         return;
 
     }
 
-    postRequest(
-
+    sendRequest(
         "/cleaning/rename-column",
-
         {
             old_column: oldColumn,
             new_column: newColumn
         },
-
         renameColumnBtn
-
     );
 
 });
 
-/* ===========================
-   Change Data Type
-=========================== */
+
+        // Change Data Type
+
 
 changeTypeBtn?.addEventListener("click", () => {
 
@@ -191,27 +181,35 @@ changeTypeBtn?.addEventListener("click", () => {
 
     const dtype = document.getElementById("dtype").value;
 
-    postRequest(
-
+    sendRequest(
         "/cleaning/change-dtype",
-
         {
-            column: column,
-            dtype: dtype
+            column,
+            dtype
         },
-
         changeTypeBtn
-
     );
 
 });
 
-/* ===========================
-   Download Dataset
-=========================== */
+
+        // Download Dataset
+
 
 downloadDatasetBtn?.addEventListener("click", () => {
 
-    window.location.href = "/cleaning/download";
+    showLoading(downloadDatasetBtn, "Preparing Download...");
+
+    setTimeout(() => {
+
+        window.location.href = "/cleaning/download";
+
+        hideLoading(downloadDatasetBtn);
+
+    }, 300);
 
 });
+
+
+
+
