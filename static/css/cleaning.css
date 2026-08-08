@@ -359,15 +359,15 @@
 }
 
 .download-btn:hover{
-    /* background:#f8fafc; */
+    background:#f8fafc;
     color:#1d4ed8;
-                /* UTILITIES */
+}
 
+/* UTILITIES */
 
 .mt-20{
     margin-top:20px;
 }
-
 
                 /* SCROLLBAR */
 

@@ -44,20 +44,20 @@
         </a>
 
         <a href="{{ url_for('cleaning.cleaning') }}"
-           class="{% if request.endpoint == 'cleaning.cleaning' %}active{% endif %}">
+            class="{% if request.endpoint == 'cleaning.cleaning' %}active{% endif %}">
 
-            <i class="fa-solid fa-broom"></i>
-            <span>Data Cleaning</span>
+                <i class="fa-solid fa-broom"></i>
+                <span>Data Cleaning</span>
 
-        </a>
+            </a>
 
-        <a href="#">
+            <a href="{{ url_for('eda.eda') }}"
+            class="{% if request.endpoint == 'eda.eda' %}active{% endif %}">
 
-            <i class="fa-solid fa-chart-line"></i>
-            <span>EDA</span>
+                <i class="fa-solid fa-chart-line"></i>
+                <span>EDA</span>
 
-        </a>
-
+            </a>
         <a href="#">
 
             <i class="fa-solid fa-chart-column"></i>

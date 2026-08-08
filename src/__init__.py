@@ -5,6 +5,7 @@ from config import Config
 from src.routes.home import home_bp
 from src.routes.explorer import explorer_bp
 from src.routes.cleaning import cleaning_bp
+from src.routes.eda import eda_bp
 
 
 def create_app():
@@ -20,5 +21,6 @@ def create_app():
     app.register_blueprint(home_bp)
     app.register_blueprint(explorer_bp)
     app.register_blueprint(cleaning_bp)
+    app.register_blueprint(eda_bp)
 
     return app

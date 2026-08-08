@@ -1,0 +1,501 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}
+EDA | DataPilot AI
+{% endblock %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/eda.css') }}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="eda-page">
+
+    <!-- Header -->
+
+    <div class="eda-header">
+
+        <div>
+
+            <span class="page-tag">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Exploratory Data Analysis
+
+            </span>
+
+            <h1>
+
+                Dataset Analytics Dashboard
+
+            </h1>
+
+            <p>
+
+                Explore your dataset with descriptive statistics,
+                interactive visualizations and AI-ready insights.
+
+            </p>
+
+        </div>
+
+        <div class="dataset-badge">
+
+            <i class="fa-solid fa-database"></i>
+
+            <div>
+
+                <span>
+
+                    Current Dataset
+
+                </span>
+
+                <h4>
+
+                    {{ dataset.dataset_name }}
+
+                </h4>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Summary -->
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="summary-icon blue">
+
+                <i class="fa-solid fa-table"></i>
+
+            </div>
+
+            <div>
+
+                <span>Total Rows</span>
+
+                <h2>
+
+                    {{ summary.rows }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="summary-card">
+
+            <div class="summary-icon green">
+
+                <i class="fa-solid fa-table-columns"></i>
+
+            </div>
+
+            <div>
+
+                <span>Total Columns</span>
+
+                <h2>
+
+                    {{ summary.columns }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="summary-card">
+
+            <div class="summary-icon orange">
+
+                <i class="fa-solid fa-circle-exclamation"></i>
+
+            </div>
+
+            <div>
+
+                <span>Missing Values</span>
+
+                <h2>
+
+                    {{ summary.missing }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="summary-card">
+
+            <div class="summary-icon red">
+
+                <i class="fa-solid fa-copy"></i>
+
+            </div>
+
+            <div>
+
+                <span>Duplicate Rows</span>
+
+                <h2>
+
+                    {{ summary.duplicates }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+        <div class="summary-card">
+
+            <div class="summary-icon purple">
+
+                <i class="fa-solid fa-memory"></i>
+
+            </div>
+
+            <div>
+
+                <span>Memory Usage</span>
+
+                <h2>
+
+                    {{ summary.memory }} KB
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Workspace -->
+
+    <div class="workspace">
+
+        <div class="tool-grid">
+            <!-- Numerical Summary -->
+
+            <div class="tool-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon blue">
+
+                        <i class="fa-solid fa-square-poll-vertical"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+
+                            Numerical Summary
+
+                        </h3>
+
+                        <p>
+
+                            Statistical summary for all numerical features.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div id="numericalSummary">
+
+                    <table class="summary-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Column</th>
+
+                                <th>Mean</th>
+
+                                <th>Median</th>
+
+                                <th>Std Dev</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- Dataset Preview -->
+
+            <div class="tool-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon green">
+
+                        <i class="fa-solid fa-table"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+
+                            Dataset Preview
+
+                        </h3>
+
+                        <p>
+
+                            First 10 records of the uploaded dataset.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div id="datasetPreview">
+
+                </div>
+
+            </div>
+
+            <!-- Distribution -->
+
+            <div class="tool-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon orange">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+
+                            Distribution Analysis
+
+                        </h3>
+
+                        <p>
+
+                            Generate interactive histogram using Plotly.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="histogramColumn">
+
+                        Select Numerical Column
+
+                    </label>
+
+                    <select id="histogramColumn" class="input">
+
+                        {% for column in summary.numeric_columns %}
+
+                        <option value="{{ column }}">
+
+                            {{ column }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <button id="generateHistogramBtn" class="btn-primary">
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    Generate Histogram
+
+                </button>
+
+                <div id="histogramChart">
+
+                </div>
+
+            </div>
+            <!-- Correlation -->
+
+            <div class="tool-card">
+
+                <div class="tool-header">
+
+                    <div class="tool-icon purple">
+
+                        <i class="fa-solid fa-diagram-project"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+
+                            Correlation Heatmap
+
+                        </h3>
+
+                        <p>
+
+                            Visualize relationships between numerical features.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div id="heatmap" 
+                style="width:100%;height:500px;">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Export -->
+
+<div class="export-section">
+
+    <div class="tool-card export-card">
+
+        <div class="tool-header">
+
+            <div class="tool-icon">
+
+                <i class="fa-solid fa-file-arrow-down"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+
+                    Export Report
+
+                </h3>
+
+                <p>
+
+                    Download Exploratory Data Analysis report.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <button id="downloadReportBtn" class="btn-primary">
+
+            <i class="fa-solid fa-download"></i>
+
+            Download Report
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- AI Insights -->
+
+<div class="tool-card ai-card">
+
+    <div class="tool-header">
+
+        <div class="tool-icon blue">
+
+            <i class="fa-solid fa-robot"></i>
+
+        </div>
+
+        <div>
+
+            <h3>
+
+                AI Insights
+
+            </h3>
+
+            <p>
+
+                AI-generated insights will be available here.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="coming-soon">
+
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+        <h3>
+
+            Coming Soon
+
+        </h3>
+
+        <p>
+
+            DataPilot AI will automatically detect trends,
+            correlations, anomalies and recommendations.
+
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/eda.js') }}"></script>
+
+{% endblock %}
